@@ -5,8 +5,8 @@ const Home = () => {
   const navigate=useNavigate()
   return (
     <>
-    <div className='text-red-500 text-2xl'>Home</div>
-    <button onClick={()=>navigate('/')}>Go back</button>
+    <div className='text-red-500 text-2xl cursor-custom w-full h-full'>Home</div>
+    {/* <button onClick={()=>navigate('/')}>Go back</button> */}
 
     </>
   )
