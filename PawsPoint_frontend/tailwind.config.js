@@ -8,14 +8,15 @@ export default {
   theme: {
     extend: {
           fontFamily:{
-       poppins:['Poppins','sans-serif']
+       poppins:['Poppins','sans-serif'],
+       title_font:["Sriracha",'cursive']
       },
       cursor: {
-        'custom': 'url("cursor.cur"),pointer', // Use a custom cursor image if desired
+        'custom': 'url("cursor2.cur"),pointer', // Use a custom cursor image if desired
       },
       colors:{
         'primary':'#faf0e6',
-        'secondary':'#8c764f',
+        'secondary':'#8AB0AB',
         'night':'#231e23'
       }
     },
