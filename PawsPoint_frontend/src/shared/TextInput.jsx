@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextInput = ({title,theme,placeHolder,type}) => {
+const TextInput = ({title,theme,placeHolder,type,required}) => {
     return (
 
         // <div>
@@ -14,11 +14,20 @@ const TextInput = ({title,theme,placeHolder,type}) => {
 <div className="input flex flex-col w-fit static">
 <label 
   htmlFor="input" 
-  className={`${theme === 'light' ? 'text-black' : 'text-primary'} text-xs font-semibold relative top-2 ml-[7px] px-[3px] bg-primary w-fit`}
+  className={`${theme === 'light' ? 'text-black' : 'text-primary'} text-xs font-semibold relative top-2 ml-[7px] px-[3px]  ${theme==='light'? 'bg-primary': 'bg-black'} w-fit`}
 >
   {title}:
 </label>
-  <input type={type} placeholder={placeHolder} name="input" className="border-gray-400 focus:border-black input px-[10px] py-[11px] text-xs bg-[#e8e8e8] border-2 rounded-[5px] w-[210px] focus:outline-none placeholder:text-black/25" />
+<input
+    type={type}
+    placeholder={placeHolder}
+    name="input"
+    className={`px-[10px] py-[11px] text-xs border-2 rounded-[5px] w-[210px] focus:outline-none placeholder-opacity-50
+                ${theme === 'light' 
+                  ? 'bg-[#f9f9f9] text-black border-gray-400 focus:border-black placeholder:text-gray-500' 
+                  : 'bg-[#2c2c2c] text-white border-gray-700 focus:border-primary placeholder:text-gray-400'}`}
+    required
+  />
 </div>
 
 

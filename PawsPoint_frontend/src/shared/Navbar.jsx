@@ -18,15 +18,49 @@ const Navbar = () => {
             PawsPoint
           </span>
         </a>
-        
+
         {/* Right Section - Download Button and Menu Toggle Button */}
         <div className="flex items-center lg:order-2">
-          <a
-            href="https://themesberg.com/product/tailwind-css/landing-page"
-            className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0"
+
+          <button
+            class="group relative flex flex-row items-center bg-[#212121] justify-center gap-2 rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]"
           >
-            Download
-          </a>
+            <div
+              class="absolute inset-0 block h-full w-full animate-gradient bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:var(--bg-size)_100%] [border-radius:inherit] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] p-[1px] ![mask-composite:subtract]"
+            ></div>
+            <div
+              class="shrink-0 bg-border w-[1px] h-4"
+              role="none"
+              data-orientation="vertical"
+            ></div>
+            <span
+              class="inline animate-gradient whitespace-pre bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent [--bg-size:300%] text-center"
+            >Explore</span
+            >
+            <svg
+              stroke-linecap="round"
+              class="text-[#9c40ff]"
+              stroke-width="1.5"
+              aria-hidden="true"
+              viewBox="0 0 10 10"
+              height="11"
+              width="11"
+              stroke="currentColor"
+              fill="none"
+            >
+              <path
+                stroke-linecap="round"
+                d="M0 5h7"
+                class="opacity-0 transition group-hover:opacity-100"
+              ></path>
+              <path
+                stroke-linecap="round"
+                d="M1 1l4 4-4 4"
+                class="transition group-hover:translate-x-[3px]"
+              ></path>
+            </svg>
+          </button>
+
           <button
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
             type="button"
@@ -67,9 +101,8 @@ const Navbar = () => {
 
         {/* Navbar Links */}
         <div
-          className={`${
-            isMobileMenuOpen ? 'block' : 'hidden'
-          } items-center justify-between bg-night z-40 w-full lg:flex lg:w-auto lg:order-1`}
+          className={`${isMobileMenuOpen ? 'block' : 'hidden'
+            } items-center justify-between bg-gray-900 z-40 w-full lg:flex lg:w-auto lg:order-1`}
           id="mobile-menu-2"
         >
           <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">

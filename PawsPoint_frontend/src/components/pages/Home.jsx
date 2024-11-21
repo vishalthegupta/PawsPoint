@@ -9,7 +9,9 @@ const Home = () => {
     
     <div className='text-red-500 text-2xl cursor-custom w-full h-full bg-secondary'>
     <Navbar/>
-      <h1 className='font-poppins'>Home</h1>
+      <div className='w-full h-auto'>
+        <img src='https://supertails.com/cdn/shop/files/Frame_1405176767-min_6855ee30-6ea4-48ef-96f0-13d809ed6f4d_1600x.png?v=1731579835'></img>
+      </div>
     </div>
     {/* <button onClick={()=>navigate('/')}>Go back</button> */}
 
