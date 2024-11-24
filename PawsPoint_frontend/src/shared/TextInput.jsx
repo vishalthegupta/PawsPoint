@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextInput = ({title,theme,placeHolder,type,required}) => {
+const TextInput = ({title,theme,placeHolder,type,required,value,setValue}) => {
     return (
 
         // <div>
@@ -22,6 +22,8 @@ const TextInput = ({title,theme,placeHolder,type,required}) => {
     type={type}
     placeholder={placeHolder}
     name="input"
+    value={value}
+    onChange={(e)=>{setValue(e.target.value)}}
     className={`px-[10px] py-[11px] text-xs border-2 rounded-[5px] w-[210px] focus:outline-none placeholder-opacity-50
                 ${theme === 'light' 
                   ? 'bg-[#f9f9f9] text-black border-gray-400 focus:border-black placeholder:text-gray-500' 

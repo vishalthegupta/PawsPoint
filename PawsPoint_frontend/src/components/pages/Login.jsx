@@ -6,12 +6,10 @@ import { useCookies } from 'react-cookie';
 import { backend_url } from '../../utils/Config';
 import { toast } from 'react-toastify';
 
-const Signup = () => {
+const Login = () => {
   const [theme, setTheme] = useState('light')
-  const [name,setName]=useState('')
   const [email,setEmail]=useState('')
   const [password,setPassword]=useState('')
-  const [confirmPassword,setConfirmPassword]=useState('')
   const navigate=useNavigate()
 
   //cookie set up
@@ -27,39 +25,35 @@ const Signup = () => {
     }
   }
 
- //handle signup
- const signup=async()=>{
+ //handle login
+ const login=async()=>{
 try{
-  if (password!=confirmPassword){
-    toast.warning('Password and confirm password not matched')
-    return;
-  }
-  const user_Role='consumer'
-  const data={    user_Name:name,
+//preparing data
+  const data={ 
     email:email,
     password:password,
-    user_Role:user_Role}
-  const response=await axios.post(backend_url+'/api/v1/users/auth/sign-up',data)
-  if (response && response?.data?.statusCode===201){
+}
+  const response=await axios.post(backend_url+'/api/v1/users/login',data)
+  if (response && response?.data?.statusCode===200){
     const token=response?.data?.data?.token
     const date=new Date()
     date.setDate(date.getDate()+30)
     setCookie('token',token,{path:'/',expires:date})
-    toast.success("User created successfully")
-    // console.log(response.data)
+    // alert("login successfull")
+    console.log(response.data)
     // console.log(token,response?.data?.data?.token)
-
+    toast.success('Login successfull')
     navigate('/')
   }
   else{
     // alert(response?.data?.errors)
     toast.error(response?.data?.errors)
-    navigate('/signup')
+    navigate('/login')
   }
 }catch(error){
-  // alert('Failed to register. Please try again later.');
-  toast.error('Failed to register. Please try again later.')
-  console.error('Sign-up error:', error);
+//   alert('Failed to register. Please try again later.');
+//   console.error('Sign-in error:', error);
+toast.error(response?.data?.errors)
 }
  }
 
@@ -101,41 +95,24 @@ try{
         </svg>
       </label>
       <div className='backdrop-blur-md rounded-md h-fit p-3 space-y-3 flex flex-col justify-center items-center'>
-        <div className='text-green-500 p-3  text-xl font-bold'>Sign Up</div>
+        <div className='text-green-400 p-3  text-xl font-bold'>Sign In</div>
         <div className='flex flex-col space-y-1'>
-          <TextInput title={'Name'} placeHolder={'Enter your name..'} type={'text'}
-            theme={theme} value={name} setValue={setName}
-          />
           <TextInput title={'Email'} placeHolder={'Enter your valid email..'} type={'email'}
             theme={theme} value={email} setValue={setEmail}
           />
           <TextInput title={'Password'} placeHolder={'Enter your password...'} type={'password'}
             theme={theme} value={password} setValue={setPassword}/>
-          <TextInput title={'Confirm Password'} placeHolder={'Enter your password again...'} type={'password'}
-            theme={theme} value={confirmPassword} setValue={setConfirmPassword}  />
         </div>
-        {/* Sign Up button */}
+        {/* Sign In button */}
 
-        <div className="flex items-center justify-center ">
-          <div className="relative group">
-            <button className="relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
-            onClick={(e)=>{
-              e.preventDefault()
-              signup()
-            }}
-            >
-              <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <span className="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
-                <div className="relative z-10 flex items-center space-x-2">
-                  <span className="transition-all duration-500 group-hover:translate-x-1">Let's get started</span>
-                  <svg className="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1" data-slot="icon" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path clipRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" fillRule="evenodd" />
-                  </svg>
-                </div>
-              </span>
-            </button>
-          </div>
-        </div>
+        <button class="w-40 h-12 bg-white cursor-pointer rounded-3xl border-2 border-[#32c02bdf] shadow-[inset_0px_-2px_0px_1px_#9748FF] group hover:bg-[#32c02bdf] transition duration-300 ease-in-out"
+        onClick={(e)=>{
+            e.preventDefault()
+            login()
+        }}
+        >
+ <span class="font-medium text-[#333] group-hover:text-white">Sign In</span>
+        </button>
 
 
         {/* google sign up button */}
@@ -178,18 +155,18 @@ try{
                     </g>
                   </g>
                 </svg>
-                <span class="ml-2">Sign Up with Google</span>
+                <span class="ml-2">Sign In with Google</span>
               </div>
             </div>
           </button>
         </div>
         <div className='m-1 flex gap-1 justify-start items-center'>
           <h5 className={`${theme==='light'?'text-black':'text-white'} text-xs`}>Already have an account?</h5>
-          <Link className={`${theme==='light'?'text-black':'text-white'} text-sm hover:text-blue-600 underline`} to='/login'>Login</Link>
+          <Link className={`${theme==='light'?'text-black':'text-white'} text-sm hover:text-blue-600 underline`} to='/signup'>Signup</Link>
         </div>
       </div>
     </div>
   )
 }
 
-export default Signup
+export default Login
