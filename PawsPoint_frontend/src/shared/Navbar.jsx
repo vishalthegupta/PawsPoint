@@ -1,46 +1,67 @@
 import React, { useState } from 'react';
-import logo from '../images/logo.png'
+import logo from '../images/logo.png';
+import Navbutton from './Navbutton';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
-const Navbar = () => {
+const Navbar = ({ currentRoute }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setSearchOpen] = useState(false);
+
+  const toggleSearch = () => {
+    setSearchOpen(!isSearchOpen);
+  };
 
   return (
-    <nav className="bg-gray-900 border-gray-700 py-2.5 w-full h-24">
+    <nav className="bg-gray-900 border-gray-700 py-2.5 w-full">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl h-full px-4 mx-auto">
         {/* Logo */}
         <a href="#" className="flex items-center">
           <img
             src={logo}
             className="h-12 w-16 mr-3"
-            alt="Landwind Logo"
+            alt="PawsPoint Logo"
           />
           <span className="self-center text-2xl font-title_font font-bold whitespace-nowrap text-white">
             PawsPoint
           </span>
         </a>
 
-        {/* Right Section - Download Button and Menu Toggle Button */}
+        {/* Right Section - Explore Button and Menu Toggle Button */}
         <div className="flex items-center lg:order-2">
+          {/* Explore Button */}
+
+         {/* Search button  */}
+
+         <button
+            onClick={toggleSearch}
+            className="lg:hidden ml-4 p-2 text-gray-400 rounded-lg hover:bg-gray-800 focus:outline-none"
+            aria-expanded={isSearchOpen ? 'true' : 'false'}
+          >
+            <Icon icon="si:search-duotone" width="20" height="20" />
+          </button>
+
+          {/* search button end  */}
 
           <button
-            class="group relative flex flex-row items-center bg-[#212121] justify-center gap-2 rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]"
+            className="hidden md:flex group relative flex-row items-center bg-[#212121] justify-center gap-2 rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]"
           >
             <div
-              class="absolute inset-0 block h-full w-full animate-gradient bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:var(--bg-size)_100%] [border-radius:inherit] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] p-[1px] ![mask-composite:subtract]"
+              className="absolute inset-0 block h-full w-full animate-gradient bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:var(--bg-size)_100%] [border-radius:inherit] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] p-[1px] ![mask-composite:subtract]"
             ></div>
             <div
-              class="shrink-0 bg-border w-[1px] h-4"
+              className="shrink-0 bg-border w-[1px] h-4"
               role="none"
               data-orientation="vertical"
             ></div>
             <span
-              class="inline animate-gradient whitespace-pre bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent [--bg-size:300%] text-center"
-            >Explore</span
+              className="inline animate-gradient whitespace-pre bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent [--bg-size:300%] text-center"
             >
+              Explore
+            </span>
             <svg
-              stroke-linecap="round"
-              class="text-[#9c40ff]"
-              stroke-width="1.5"
+              strokeLinecap="round"
+              className="text-[#9c40ff]"
+              strokeWidth="1.5"
               aria-hidden="true"
               viewBox="0 0 10 10"
               height="11"
@@ -49,18 +70,19 @@ const Navbar = () => {
               fill="none"
             >
               <path
-                stroke-linecap="round"
+                strokeLinecap="round"
                 d="M0 5h7"
-                class="opacity-0 transition group-hover:opacity-100"
+                className="opacity-0 transition group-hover:opacity-100"
               ></path>
               <path
-                stroke-linecap="round"
+                strokeLinecap="round"
                 d="M1 1l4 4-4 4"
-                class="transition group-hover:translate-x-[3px]"
+                className="transition group-hover:translate-x-[3px]"
               ></path>
             </svg>
           </button>
 
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
             type="button"
@@ -107,60 +129,90 @@ const Navbar = () => {
         >
           <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-500 lg:p-0"
-                aria-current="page"
-              >
-                Home
-              </a>
+              <Navbutton destination={'#'} label={'Home'} active={'True'} />
             </li>
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-400 border-b border-gray-600 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-500 lg:p-0"
-              >
-                Company
-              </a>
+              <Navbutton destination={'#'} label={'Shop'} />
             </li>
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-400 border-b border-gray-600 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-500 lg:p-0"
-              >
-                Marketplace
-              </a>
+              <Navbutton destination={'#'} label={'Vet'} />
             </li>
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-400 border-b border-gray-600 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-500 lg:p-0"
-              >
-                Features
-              </a>
+              <Navbutton destination={'#'} label={'Call'} />
             </li>
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-400 border-b border-gray-600 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-500 lg:p-0"
-              >
-                Team
-              </a>
+              <Navbutton destination={'#'} label={'Contact'} />
             </li>
             <li>
-              <a
-                href="#"
-                className="block py-2 pl-3 pr-4 text-gray-400 border-b border-gray-600 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-500 lg:p-0"
-              >
-                Contact
-              </a>
+              <Navbutton destination={'#'} label={'Adopt'} />
             </li>
           </ul>
+
+          {/* Search Bar - Shown on second row in mobile view */}
+          <div className="block relative mt-4 w-full lg:hidden">
+            <input
+              type="text"
+              className="block w-full px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+              placeholder="Search..."
+            />
+            <button
+              className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+            >
+              <svg
+                className="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Search Bar for Large Screens */}
+        <div className="hidden lg:block relative mx-4">
+          <input
+            type="text"
+            className="block w-64 px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+            placeholder="Search..."
+          />
+          <button
+            className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+          >
+           <Icon icon="si:search-duotone" width="20" height="20" />
+          </button>
         </div>
       </div>
+
+            {/* Search Bar (visible when clicked) */}
+            {isSearchOpen && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 backdrop-blur-sm bg-black bg-opacity-50 z-50" onClick={toggleSearch}>
+          <div className="flex justify-center items-start h-full">
+            <div className="relative m-3  w-11/12 sm:w-96 bg-white p-4 rounded-lg">
+              <input
+                type="text"
+                className="w-full px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                placeholder="Search..."
+              />
+              <button
+                onClick={toggleSearch}
+                className="absolute top-6 right-5 text-gray-600 hover:text-gray-800"
+              >
+                <Icon icon="si:search-duotone" width="20" height="20" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
 
 export default Navbar;
-
