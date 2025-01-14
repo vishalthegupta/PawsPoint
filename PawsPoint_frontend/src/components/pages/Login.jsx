@@ -5,12 +5,15 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { backend_url } from '../../utils/Config';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
+const [auth,setAuth]=useAuth()
+
   const [theme, setTheme] = useState('light')
-  const [email,setEmail]=useState('')
-  const [password,setPassword]=useState('')
-  const navigate=useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   //cookie set up
   const [cookies, setCookie] = useCookies(['token']);
@@ -25,37 +28,47 @@ const Login = () => {
     }
   }
 
- //handle login
- const login=async()=>{
-try{
-//preparing data
-  const data={ 
-    email:email,
-    password:password,
-}
-  const response=await axios.post(backend_url+'/api/v1/users/login',data)
-  if (response && response?.data?.statusCode===200){
-    const token=response?.data?.data?.token
-    const date=new Date()
-    date.setDate(date.getDate()+30)
-    setCookie('token',token,{path:'/',expires:date})
-    // alert("login successfull")
-    console.log(response.data)
-    // console.log(token,response?.data?.data?.token)
-    toast.success('Login successfull')
-    navigate('/')
+  //handle login
+  const login = async () => {
+    try {
+      //preparing data
+      const data = {
+        email: email,
+        password: password,
+      }
+      const response = await axios.post(backend_url + '/api/v1/users/login', data)
+      if (response && response?.data?.statusCode === 200) {
+        const token = response?.data?.data?.token
+        const date = new Date()
+        date.setDate(date.getDate() + 30)
+
+        //set the token in cookie storage
+        setCookie('token', token, { path: '/', expires: date })
+
+        //set the user data in localstorage
+        const userData=response.data.data.user
+        localStorage.setItem('user',JSON.stringify(userData))
+        //setting the auth data in context
+       setAuth({
+        user:userData,
+        token
+       })
+        console.log(response.data)
+        // console.log(token,response?.data?.data?.token)
+        toast.success('Login successfull')
+        navigate('/')
+      }
+      else {
+        // alert(response?.data?.errors)
+        toast.error(response?.data?.errors)
+        navigate('/login')
+      }
+    } catch (error) {
+      //   alert('Failed to register. Please try again later.');
+      //   console.error('Sign-in error:', error);
+      toast.error(response?.data?.errors)
+    }
   }
-  else{
-    // alert(response?.data?.errors)
-    toast.error(response?.data?.errors)
-    navigate('/login')
-  }
-}catch(error){
-//   alert('Failed to register. Please try again later.');
-//   console.error('Sign-in error:', error);
-toast.error(response?.data?.errors)
-}
- }
 
 
   return (
@@ -101,17 +114,17 @@ toast.error(response?.data?.errors)
             theme={theme} value={email} setValue={setEmail}
           />
           <TextInput title={'Password'} placeHolder={'Enter your password...'} type={'password'}
-            theme={theme} value={password} setValue={setPassword}/>
+            theme={theme} value={password} setValue={setPassword} />
         </div>
         {/* Sign In button */}
 
         <button class="w-40 h-12 bg-white cursor-pointer rounded-3xl border-2 border-[#32c02bdf] shadow-[inset_0px_-2px_0px_1px_#9748FF] group hover:bg-[#32c02bdf] transition duration-300 ease-in-out"
-        onClick={(e)=>{
+          onClick={(e) => {
             e.preventDefault()
             login()
-        }}
+          }}
         >
- <span class="font-medium text-[#333] group-hover:text-white">Sign In</span>
+          <span class="font-medium text-[#333] group-hover:text-white">Sign In</span>
         </button>
 
 
@@ -161,8 +174,8 @@ toast.error(response?.data?.errors)
           </button>
         </div>
         <div className='m-1 flex gap-1 justify-start items-center'>
-          <h5 className={`${theme==='light'?'text-black':'text-white'} text-xs`}>Already have an account?</h5>
-          <Link className={`${theme==='light'?'text-black':'text-white'} text-sm hover:text-blue-600 underline`} to='/signup'>Signup</Link>
+          <h5 className={`${theme === 'light' ? 'text-black' : 'text-white'} text-xs`}>Already have an account?</h5>
+          <Link className={`${theme === 'light' ? 'text-black' : 'text-white'} text-sm hover:text-blue-600 underline`} to='/signup'>Signup</Link>
         </div>
       </div>
     </div>
