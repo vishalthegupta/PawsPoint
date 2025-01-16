@@ -2,14 +2,26 @@ import React, { useState } from 'react';
 import logo from '../images/logo.png';
 import Navbutton from './Navbutton';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useAuth } from '../context/AuthContext';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ currentRoute }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
+  const [auth, setAuth] = useAuth()
+  const [cookies, setCookie,removeCookie] = useCookies(['token']);
+  const name = auth?.user?.user_Name;
+  const navigate=useNavigate()
 
+  const handleLogout=async()=>{
+    await removeCookie('token')
+    await localStorage.clear()
+  }
   const toggleSearch = () => {
     setSearchOpen(!isSearchOpen);
   };
+
 
   return (
     <nav className="bg-gray-900 border-gray-700 py-2.5 w-full">
@@ -30,9 +42,9 @@ const Navbar = ({ currentRoute }) => {
         <div className="flex items-center lg:order-2">
           {/* Explore Button */}
 
-         {/* Search button  */}
+          {/* Search button  */}
 
-         <button
+          <button
             onClick={toggleSearch}
             className="lg:hidden ml-4 p-2 text-gray-400 rounded-lg hover:bg-gray-800 focus:outline-none"
             aria-expanded={isSearchOpen ? 'true' : 'false'}
@@ -41,8 +53,9 @@ const Navbar = ({ currentRoute }) => {
           </button>
 
           {/* search button end  */}
-
+          {/* dashboard button  */}
           <button
+           onClick={()=>navigate('/dashboard')}
             className="hidden md:flex group relative flex-row items-center bg-[#212121] justify-center gap-2 rounded-2xl px-4 py-1.5 text-sm font-medium shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]"
           >
             <div
@@ -56,7 +69,7 @@ const Navbar = ({ currentRoute }) => {
             <span
               className="inline animate-gradient whitespace-pre bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent [--bg-size:300%] text-center"
             >
-              Explore
+              {name?.substring(0, 2)?.toUpperCase() || "Login"}
             </span>
             <svg
               strokeLinecap="round"
@@ -129,7 +142,7 @@ const Navbar = ({ currentRoute }) => {
         >
           <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
             <li>
-              <Navbutton destination={'#'} label={'Home'} active={'True'} />
+              <Navbutton  destination={'/'} label={'Home'} active={'True'} />
             </li>
             <li>
               <Navbutton destination={'#'} label={'Shop'} />
@@ -138,14 +151,49 @@ const Navbar = ({ currentRoute }) => {
               <Navbutton destination={'#'} label={'Vet'} />
             </li>
             <li>
-              <Navbutton destination={'#'} label={'Call'} />
-            </li>
-            <li>
               <Navbutton destination={'#'} label={'Contact'} />
             </li>
             <li>
               <Navbutton destination={'#'} label={'Adopt'} />
             </li>
+            <l1 className={`${isMobileMenuOpen ? 'block' : 'hidden'}`}>
+              <button
+              onClick={()=>navigate('/dashboard')}
+                class="md:hidden relative inline-flex  h-9 active:scale-95 transistion overflow-hidden rounded-lg p-[1px] focus:outline-none my-3"
+              >
+                <span
+                  class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#e7029a_0%,#f472b6_50%,#bd5fff_100%)]"
+                >
+                </span>
+                <span
+                  class="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2 undefined"
+                >
+                  Profile
+                </span>
+              </button>
+
+            </l1>
+            <l1>
+              <button onClick={handleLogout}
+                class="group flex items-center justify-start w-11 h-6 my-1 bg-red-600 rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32 hover:rounded-lg active:translate-x-1 active:translate-y-1"
+              >
+                <div
+                  class="flex items-center justify-center w-full transition-all duration-300 group-hover:justify-start group-hover:px-3"
+                >
+                  <svg class="w-4 h-4" viewBox="0 0 512 512" fill="white">
+                    <path
+                      d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+                    ></path>
+                  </svg>
+                </div>
+                <div
+                  class="absolute right-5 transform translate-x-full opacity-0 text-white text-lg font-semibold transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                >
+                  Logout
+                </div>
+              </button>
+            </l1>
+
           </ul>
 
           {/* Search Bar - Shown on second row in mobile view */}
@@ -186,13 +234,13 @@ const Navbar = ({ currentRoute }) => {
           <button
             className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
           >
-           <Icon icon="si:search-duotone" width="20" height="20" />
+            <Icon icon="si:search-duotone" width="20" height="20" />
           </button>
         </div>
       </div>
 
-            {/* Search Bar (visible when clicked) */}
-            {isSearchOpen && (
+      {/* Search Bar (visible when clicked) */}
+      {isSearchOpen && (
         <div className="fixed top-0 left-0 right-0 bottom-0 backdrop-blur-sm bg-black bg-opacity-50 z-50" onClick={toggleSearch}>
           <div className="flex justify-center items-start h-full">
             <div className="relative m-3  w-11/12 sm:w-96 bg-white p-4 rounded-lg">

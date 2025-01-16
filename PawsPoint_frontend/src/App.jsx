@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie';
 import Home from './components/pages/Home';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
+import Dashboard from './components/pages/Dashboard';
 
 function App() {
   const [cookies] = useCookies(['token']);
@@ -17,6 +18,7 @@ function App() {
         {cookie ? (
           <>
             <Route path="/" element={<Home />} />
+            <Route path='/dashboard' element={<Dashboard/>} />
             <Route path="*" element={<Home />} />
           </>
         ) : (
