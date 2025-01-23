@@ -1,14 +1,16 @@
 import React from 'react';
 import Wrapper from '../Wrapper/wrapper';
 import { useAuth } from '../../context/AuthContext';
-
+import { Outlet, useNavigate } from 'react-router-dom';
 const Dashboard = () => {
   const [auth, setAuth] = useAuth();
+  const navigate = useNavigate()
   console.log(auth?.user);
   const profilePic = auth?.user?.profile_Image;
   const role = auth?.user?.user_Role;
   const name = auth?.user?.user_Name;
   const email = auth?.user?.email;
+
 
   // ISO formatted date
   const joinDateISO = auth?.user?.created_at;
@@ -43,28 +45,56 @@ const Dashboard = () => {
             <span className="font-bold">Joining Date:</span>
             {join}
           </h1>
-          <button className="cursor-pointer my-4 uppercase rounded-full bg-white px-4 py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.5rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] hover:animate animate-pulse transition">
+          <button onClick={() => navigate('/profile')} className="cursor-pointer my-4 uppercase rounded-full bg-white px-4 py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.5rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] hover:animate animate-pulse transition">
             Edit Profile
           </button>
         </div>
+
+        {/* Dashboard only for seller,admin,vet   */}
         {(role === 'seller' || role === 'admin' || role === 'vet') && (
           <div className="w-3/4 bg-emerald-500 flex flex-col items-center justify-around p-4 rounded-lg gap-4 hover:shadow-[0px_6px_32px_0px_#f7fafc]">
             <h1 className="font-bold text-white text-xl mb-4">Dashboard</h1>
-            <button className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
-              Create Product
-            </button>
-            <button className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
-              Create Category
-            </button>
-            <button className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
-              Appointments
-            </button>
-            <button className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
-              Order Track
-            </button>
+            {
+              role === 'seller' &&
+              <>
+                <button onClick={()=>navigate('/dashboard/createproduct')} className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
+                  Create Product
+                </button>
+                <button onClick={()=>navigate('/dashboard/own-product')} className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
+                  Update Product
+                </button>
+              </>
+            }
+            {
+              role === 'admin' &&
+              <><button className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
+                Create Category
+              </button>
+
+                <button className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
+                  Order Update
+                </button>
+
+                <button className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
+                  Set Appointments
+                </button>
+              </>
+            }
+
+
+
+            {/* only for vets  */}
+            {
+              role === 'vet' &&
+              <button className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
+                Appointments
+              </button>
+            }
+
           </div>
         )}
       </div>
+
     </Wrapper>
   );
 };

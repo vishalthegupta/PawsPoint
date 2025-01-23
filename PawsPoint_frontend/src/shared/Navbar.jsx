@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ currentRoute }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [auth, setAuth] = useAuth()
   const [cookies, setCookie,removeCookie] = useCookies(['token']);
@@ -15,11 +16,30 @@ const Navbar = ({ currentRoute }) => {
   const navigate=useNavigate()
 
   const handleLogout=async()=>{
-    await removeCookie('token')
-    await localStorage.clear()
+    removeCookie('token')
+    localStorage.clear()
+    delete axios.defaults.headers.common['Authorization'];
   }
+
+  //toggle search 
   const toggleSearch = () => {
     setSearchOpen(!isSearchOpen);
+  };
+
+  //handle search result
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search-product?search=${encodeURIComponent(searchQuery)}`);
+      
+    }
+  };
+  
+  //handle search result for mobile view
+  const handleSearchMobile = () => {
+    if (searchQuery.trim()) {
+      navigate(`/search-product?search=${encodeURIComponent(searchQuery)}`);
+      toggleSearch();
+    }
   };
 
 
@@ -202,8 +222,11 @@ const Navbar = ({ currentRoute }) => {
               type="text"
               className="block w-full px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg focus:ring-purple-500 focus:border-purple-500"
               placeholder="Search..."
+              value={searchQuery}
+              onChange={(e)=>{setSearchQuery(e.target.value)}}
             />
             <button
+            onClick={handleSearch}
               className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
             >
               <svg
@@ -230,9 +253,12 @@ const Navbar = ({ currentRoute }) => {
             type="text"
             className="block w-64 px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg focus:ring-purple-500 focus:border-purple-500"
             placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <button
             className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+            onClick={handleSearch}
           >
             <Icon icon="si:search-duotone" width="20" height="20" />
           </button>
@@ -243,14 +269,19 @@ const Navbar = ({ currentRoute }) => {
       {isSearchOpen && (
         <div className="fixed top-0 left-0 right-0 bottom-0 backdrop-blur-sm bg-black bg-opacity-50 z-50" onClick={toggleSearch}>
           <div className="flex justify-center items-start h-full">
-            <div className="relative m-3  w-11/12 sm:w-96 bg-white p-4 rounded-lg">
+            <div className="relative m-3  w-11/12 sm:w-96 bg-white p-4 rounded-lg"
+             onClick={(e) => e.stopPropagation()}
+            >
               <input
                 type="text"
                 className="w-full px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg focus:ring-purple-500 focus:border-purple-500"
-                placeholder="Search..."
+                placeholder="Search...."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+
               />
               <button
-                onClick={toggleSearch}
+                onClick={handleSearchMobile}
                 className="absolute top-6 right-5 text-gray-600 hover:text-gray-800"
               >
                 <Icon icon="si:search-duotone" width="20" height="20" />

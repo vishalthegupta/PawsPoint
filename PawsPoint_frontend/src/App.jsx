@@ -7,6 +7,11 @@ import Home from './components/pages/Home';
 import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Dashboard from './components/pages/Dashboard';
+import EditProfile from './components/pages/EditProfile';
+import CreateProduct from './components/pages/protected/CreateProduct';
+import OwnProduct from './components/pages/protected/OwnProduct';
+import UpdateProduct from './components/pages/protected/UpdateProduct';
+import SearchResult from './components/pages/SearchResult';
 
 function App() {
   const [cookies] = useCookies(['token']);
@@ -18,7 +23,13 @@ function App() {
         {cookie ? (
           <>
             <Route path="/" element={<Home />} />
+            <Route path='/search-product' element={<SearchResult/>} />
             <Route path='/dashboard' element={<Dashboard/>} />
+            <Route path='/profile' element={<EditProfile/>}/>
+            <Route path='/dashboard/createproduct' element={<CreateProduct/>}/>
+            <Route path='/dashboard/own-product' element={<OwnProduct/>}/>
+            <Route path='/dashboard/update-product' element={<UpdateProduct/>}/>
+    
             <Route path="*" element={<Home />} />
           </>
         ) : (

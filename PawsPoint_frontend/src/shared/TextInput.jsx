@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextInput = ({title,theme,placeHolder,type,required,value,setValue}) => {
+const TextInput = ({title,theme,placeHolder,type,required=true,value,setValue}) => {
     return (
 
         // <div>
@@ -28,7 +28,7 @@ const TextInput = ({title,theme,placeHolder,type,required,value,setValue}) => {
                 ${theme === 'light' 
                   ? 'bg-[#f9f9f9] text-black border-gray-400 focus:border-black placeholder:text-gray-500' 
                   : 'bg-[#2c2c2c] text-white border-gray-700 focus:border-primary placeholder:text-gray-400'}`}
-    required
+    required={required}
   />
 </div>
 
