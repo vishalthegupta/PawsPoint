@@ -12,7 +12,7 @@ const Home = () => {
   const [auth,setAuth]=useAuth()
   return (
     <>
-    <Wrapper>
+    <Wrapper current={'home'}>
     <div className='text-2xl cursor-custom w-full h-auto bg-night'>
     
       {/* <div className='w-full h-auto'>

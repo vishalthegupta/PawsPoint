@@ -12,6 +12,7 @@ import CreateProduct from './components/pages/protected/CreateProduct';
 import OwnProduct from './components/pages/protected/OwnProduct';
 import UpdateProduct from './components/pages/protected/UpdateProduct';
 import SearchResult from './components/pages/SearchResult';
+import Shop from './components/pages/Shop';
 
 function App() {
   const [cookies] = useCookies(['token']);
@@ -24,6 +25,7 @@ function App() {
           <>
             <Route path="/" element={<Home />} />
             <Route path='/search-product' element={<SearchResult/>} />
+            <Route path='/shop' element={<Shop/>} />
             <Route path='/dashboard' element={<Dashboard/>} />
             <Route path='/profile' element={<EditProfile/>}/>
             <Route path='/dashboard/createproduct' element={<CreateProduct/>}/>

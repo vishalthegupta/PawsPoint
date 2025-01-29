@@ -3,7 +3,7 @@ import React from 'react'
 const Loading = () => {
   return (
  /* From Uiverse.io by devAaus */ 
-<div class="h-full w-full flex-col gap-4 w-full flex items-center justify-center bg-black">
+<div class="h-full w-full flex-col gap-4  flex items-center justify-center bg-black">
   <div
     class="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
   >

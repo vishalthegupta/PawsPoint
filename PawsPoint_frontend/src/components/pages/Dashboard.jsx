@@ -63,6 +63,9 @@ const Dashboard = () => {
                 <button onClick={()=>navigate('/dashboard/own-product')} className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
                   Update Product
                 </button>
+                <button onClick={()=>navigate('/dashboard')} className="px-6 py-3 rounded-full bg-white text-emerald-600 font-semibold uppercase hover:bg-emerald-100 shadow-md">
+                 Orders
+                </button>
               </>
             }
             {

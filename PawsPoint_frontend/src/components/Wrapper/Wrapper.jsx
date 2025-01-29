@@ -3,10 +3,10 @@ import Navbar from '../../shared/Navbar'
 import Footer from '../../shared/Footer'
 
 
-const Wrapper = ({children}) => {
+const Wrapper = ({children,current}) => {
   return (
     <div className='overflow-x-hidden h-screen w-screen'>
-        <Navbar/>
+        <Navbar currentRoute={current}/>
         {children}
         <Footer/>
     </div>

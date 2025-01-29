@@ -162,19 +162,19 @@ const Navbar = ({ currentRoute }) => {
         >
           <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
             <li>
-              <Navbutton  destination={'/'} label={'Home'} active={'True'} />
+              <Navbutton  destination={'/'} label={'Home'} active={currentRoute=='home'} />
             </li>
             <li>
-              <Navbutton destination={'#'} label={'Shop'} />
+              <Navbutton destination={'/shop'} label={'Shop'} active={currentRoute=='shop'}/>
             </li>
             <li>
-              <Navbutton destination={'#'} label={'Vet'} />
+              <Navbutton destination={'#'} label={'Vet'} active={currentRoute=='vet'}/>
             </li>
             <li>
-              <Navbutton destination={'#'} label={'Contact'} />
+              <Navbutton destination={'#'} label={'Contact'} active={currentRoute=='contact'}/>
             </li>
             <li>
-              <Navbutton destination={'#'} label={'Adopt'} />
+              <Navbutton destination={'#'} label={'Adopt'} active={currentRoute=='adapt'}/>
             </li>
             <l1 className={`${isMobileMenuOpen ? 'block' : 'hidden'}`}>
               <button
@@ -274,7 +274,7 @@ const Navbar = ({ currentRoute }) => {
             >
               <input
                 type="text"
-                className="w-full px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg focus:ring-purple-500 focus:border-purple-500"
+                className="w-full  px-4 py-2 text-sm text-gray-900 bg-gray-200 rounded-lg focus:ring-purple-500 focus:border-purple-500"
                 placeholder="Search...."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
