@@ -40,7 +40,7 @@ const SearchResult = () => {
       ) : products.length > 0 ? (
         <div className='flex flex-row gap-5 bg-night flex-wrap p-3'>
           {products.map((product,id) => (
-            <ProductWithOption key={id} urls={product.product_Images[0]} product_name={product.name}
+            <ProductWithOption key={id} pID={product?._id} urls={product.product_Images[0]} product_name={product.name}
             price={product.price}
             />
           ))}

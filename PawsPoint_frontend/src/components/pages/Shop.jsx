@@ -105,7 +105,7 @@ const Shop = () => {
     {
         products?.length > 0 ? (
             products.map((product, id) => (
-                <ProductWithOption key={id} urls={product?.product_Images[0]} product_name={product?.name} price={product?.price}/>
+                <ProductWithOption key={id} pID={product?._id} urls={product?.product_Images[0]} product_name={product?.name} price={product?.price}/>
             ))
         ) : (
             <h1>No Product Available</h1>

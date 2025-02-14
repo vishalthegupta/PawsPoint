@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const ProductWithOption = ({urls,product_name,price}) => {
+const ProductWithOption = ({pID,urls,product_name,price}) => {
   return (
-        <Link>
+        <Link to={`/p/${pID}`} >
         <div className='bg-black h-60 w-36 md:h-70 md:w-50 p-1 flex flex-col rounded-md hover:shadow-[0px_6px_32px_0px_#f7fafc] hover:animate-pulse'>
         <img src={urls} className='h-2/4'></img>
         <h1 className='text-amber-400  font-bold text-sm'>{product_name.length>14? product_name.substring(0,14)+"....":product_name}</h1>
