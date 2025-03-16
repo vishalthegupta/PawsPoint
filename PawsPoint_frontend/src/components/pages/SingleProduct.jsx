@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Wrapper from '../Wrapper/wrapper'
 import { useParams } from 'react-router-dom'
 import { backend_url } from '../../utils/Config'
+import { useAuth } from '../../context/AuthContext'
 
 const SingleProduct = () => {
     const { pID } = useParams()
@@ -9,6 +10,7 @@ const SingleProduct = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [address, setAddress] = useState('')
+    const [auth] = useAuth()
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -36,8 +38,8 @@ const SingleProduct = () => {
                     {/* Left Side - Product Image */}
                     <div className="md:w-1/2">
                         <div className="bg-white p-4 rounded-lg shadow-lg shadow-amber-400">
-                            <img 
-                                src={product.product_Images[0]} 
+                            <img
+                                src={product.product_Images[0]}
                                 alt={product.name}
                                 className="w-full h-96 object-contain rounded-lg"
                             />
@@ -59,14 +61,20 @@ const SingleProduct = () => {
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex-1">
-                                Buy Now
-                            </button>
-                            <button className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition-colors flex-1">
-                                Add to Cart
-                            </button>
-                        </div>
+                        {
+                            auth?.user ?
+                                <div className="flex flex-col sm:flex-row gap-4">
+                                    <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex-1">
+                                        Buy Now
+                                    </button>
+                                    <button className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition-colors flex-1">
+                                        Add to Cart
+                                    </button>
+                                </div> :
+                                <div>
+                                    <h1>You have to login before continue</h1>
+                                </div>
+                        }
 
                         {/* Address Section */}
                         <div className="pt-6 border-t border-gray-200">

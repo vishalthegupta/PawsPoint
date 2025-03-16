@@ -18,7 +18,7 @@ const priceRanges = [
 const categories = [
   "Pet Food & Treats",
   "Pet Accessories",
-  "Pet Toys & Entertainment",
+  "Toys",
   "Pet Grooming & Hygiene",
   "Pet Health & Wellness",
   "Pet Housing & Enclosures",
