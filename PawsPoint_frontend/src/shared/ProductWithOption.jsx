@@ -8,7 +8,7 @@ const ProductWithOption = ({ pID, urls, product_name, price }) => {
     <div className="bg-gray-900 h-64 w-36 md:h-72 md:w-52 p-2 flex flex-col rounded-lg shadow-md hover:shadow-xl transition-all duration-300 mb-3">
       {/* Product image & info wrapped in link */}
       <Link to={`/p/${pID}`} className="flex flex-col items-center">
-        <img src={urls} alt="product" className="h-32 w-full object-cover rounded-md mb-2" />
+        <img src={urls} alt="product" className="h-32 w-full object-contain rounded-md mb-2" />
         <h1 className="text-amber-400 font-bold text-sm text-center">
           {product_name.length > 14 ? product_name.substring(0, 14) + "..." : product_name}
         </h1>

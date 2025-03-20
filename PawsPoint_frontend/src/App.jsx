@@ -16,6 +16,7 @@ import Shop from './components/pages/Shop';
 import SingleProduct from './components/pages/SingleProduct';
 import OrderPage from './components/pages/OrderPage';
 import Payment from './components/pages/Payment';
+import PaymentSuccess from './components/pages/PaymentSuccess';
 
 function App() {
   const [cookies] = useCookies(['token']);
@@ -32,6 +33,7 @@ function App() {
             <Route path='/p/:pID' element={<SingleProduct/>} />
             <Route path='/o/:pID' element={<OrderPage/>} />
             <Route path='/pay/:pID' element={<Payment/>} />
+            <Route path='/paymentSuccess' element={<PaymentSuccess/>} />
             <Route path='/dashboard' element={<Dashboard/>} />
             <Route path='/profile' element={<EditProfile/>}/>
             <Route path='/dashboard/createproduct' element={<CreateProduct/>}/>

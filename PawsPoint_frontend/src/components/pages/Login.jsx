@@ -36,7 +36,13 @@ const [auth,setAuth]=useAuth()
         email: email,
         password: password,
       }
-      const response = await axios.post(backend_url + '/api/v1/users/login', data)
+      const response = await axios.post(backend_url + '/api/v1/users/login', data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
       if (response && response?.data?.statusCode === 200) {
         const token = response?.data?.data?.token
         const date = new Date()
@@ -66,7 +72,7 @@ const [auth,setAuth]=useAuth()
     } catch (error) {
       //   alert('Failed to register. Please try again later.');
       //   console.error('Sign-in error:', error);
-      toast.error(response?.data?.errors)
+      toast.error("login error",error)
     }
   }
 

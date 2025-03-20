@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Wrapper from '../Wrapper/wrapper'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { backend_url } from '../../utils/Config'
 import { useAuth } from '../../context/AuthContext'
 
@@ -11,6 +11,8 @@ const SingleProduct = () => {
     const [error, setError] = useState(null)
     const [address, setAddress] = useState('')
     const [auth] = useAuth()
+
+    const navigate=useNavigate()
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -64,7 +66,9 @@ const SingleProduct = () => {
                         {
                             auth?.user ?
                                 <div className="flex flex-col sm:flex-row gap-4">
-                                    <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex-1">
+                                    <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex-1"
+                                    onClick={() => navigate(`/o/${pID}`)}
+                                    >
                                         Buy Now
                                     </button>
                                     <button className="bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition-colors flex-1">
