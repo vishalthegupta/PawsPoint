@@ -44,7 +44,7 @@ const Navbar = ({ currentRoute }) => {
 
 
   return (
-    <nav className="bg-gray-900 border-gray-700 py-2.5 w-full">
+    <nav className="bg-gray-900 border-gray-700 py-2.5 w-full h-[80px]">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl h-full px-4 mx-auto">
         {/* Logo */}
         <a href="#" className="flex items-center">

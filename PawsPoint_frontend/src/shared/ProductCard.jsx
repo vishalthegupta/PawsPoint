@@ -1,14 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const ProductCard = ({ur}) => {
+const ProductCard = ({ ur, title }) => {
   return (
-    <Link>
-    <div className='bg-black h-40 w-36 md:h-56 md:w-48 p-1 flex flex-col rounded-md hover:shadow-[0px_6px_32px_0px_#f7fafc] hover:animate-pulse'>
-    <img src={ur} className='h-full'></img>
-    </div>
+    <Link to="#" className="w-full sm:w-40 md:w-48 lg:w-56">
+      <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 h-56 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+        {/* Product Image */}
+        <img src={ur} alt={title} className="w-full h-40 object-cover p-3" />
+        {/* Product Title */}
+        <div className="p-3 text-center">
+          <h3 className="text-white text-sm font-semibold">{title}</h3>
+        </div>
+      </div>
     </Link>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;

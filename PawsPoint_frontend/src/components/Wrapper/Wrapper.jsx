@@ -5,7 +5,7 @@ import Footer from '../../shared/Footer'
 
 const Wrapper = ({children,current}) => {
   return (
-    <div className='overflow-x-hidden h-screen w-screen'>
+    <div className='overflow-x-hidden h-screen w-screen bg-gray-900'>
         <Navbar currentRoute={current}/>
         {children}
         <Footer/>
